@@ -24,6 +24,8 @@ services:
       - "8080:80"
     volumes:
       - pgadmin-data:/var/lib/pgadmin
+    depends_on:
+      - postgres
     links:
       - "postgres"
 
@@ -35,6 +37,7 @@ services:
       - "5000:5000"
     volumes:
       - /app/node_modules
+      - /app/dist
       - ./api:/app
     environment:
       DB_HOST: postgres
@@ -43,10 +46,25 @@ services:
       DB_PASSWORD: postgres
       DB_NAME: movie-watchlist
       SYNC: "true"
+    depends_on:
+      - postgres
     command:
       ["./wait-for-it.sh", "postgres:5432", "--", "npm", "run", "start:dev"]
     links:
       - "postgres"
+
+  client:
+    stdin_open: true
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./client
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+    links:
+      - "api"
 
 volumes:
   db-data:
