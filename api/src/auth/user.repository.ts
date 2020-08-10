@@ -2,13 +2,10 @@ import { EntityRepository, Repository } from 'typeorm';
 import { User } from './user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcryptjs';
-import * as jwt from 'jsonwebtoken';
-import { LoginUserDto } from './dto/login-user.dto';
-import { NotFoundException } from '@nestjs/common';
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
-  async registerUser(createUserDto: CreateUserDto): Promise<void> {
+  async registerUser(createUserDto: CreateUserDto): Promise<string> {
     const { username, firstName, lastName, password } = createUserDto;
 
     // Hash password
@@ -23,15 +20,13 @@ export class UserRepository extends Repository<User> {
     newUser.salt = salt;
 
     await newUser.save();
+
+    return newUser.username;
   }
 
-  async loginUser(loginUserDto: LoginUserDto): Promise<{ token: string }> {
-    const { username, password } = loginUserDto;
-
+  async getUserByUsername(username: string): Promise<User> {
     const user = await this.findOne({ username });
 
-    if (!user) {
-      throw new NotFoundException('Username does not exist');
-    }
+    return user;
   }
 }
