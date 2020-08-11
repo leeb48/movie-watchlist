@@ -48,6 +48,8 @@ services:
       SYNC: "true"
       JWT_SECRET: movie-watchlist
       JWT_EXPIRE_TIME: 3600
+      OAUTH_CLIENT_ID: 829553638037-1kfopki4r9qeaqjd7qi7j660eqmbv9si.apps.googleusercontent.com
+      OAUTH_SECRET: yVrAtQtbjPfJPT0C_FYEWkGC
     depends_on:
       - postgres
     command:
