@@ -5,7 +5,7 @@ import { Injectable } from '@nestjs/common';
 import { OAuthConfig } from './config/oauth.config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository } from './user.repository';
-import { User } from './user.entity';
+import { User } from './entity/user.entity';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {

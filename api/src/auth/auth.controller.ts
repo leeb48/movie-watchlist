@@ -44,10 +44,4 @@ export class AuthController {
   googleAuthRedirect(@Req() req) {
     return this.authService.googleLogin(req);
   }
-
-  @Get('/test')
-  @UseGuards(AuthGuard('jwt'))
-  test(): string {
-    return 'Protected Route';
-  }
 }

@@ -4,8 +4,10 @@ import {
   Column,
   BaseEntity,
   Unique,
+  OneToMany,
 } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
+import { Movie } from 'src/movies/entity/movie.entity';
 
 @Entity()
 @Unique(['username'])
@@ -27,6 +29,13 @@ export class User extends BaseEntity {
 
   @Column()
   password: string;
+
+  @OneToMany(
+    type => Movie,
+    movie => movie.user,
+    { eager: true },
+  )
+  movies: Movie[];
 
   // Hash the passed in password with the stored salt
   // and compare with stored hash to authenticate user
