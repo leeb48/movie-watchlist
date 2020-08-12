@@ -1,4 +1,5 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { Injectable, UnauthorizedException, Req } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository } from './user.repository';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -42,6 +43,20 @@ export class AuthService {
     }
 
     // Send back token with username upon successful validation
+    const payload = {
+      username,
+    };
+
+    return {
+      token: this.jwtService.sign(payload),
+    };
+  }
+
+  // Create a authentication token after the user has
+  // successfully logged in with Google OAauth2.0
+  async googleLogin(@Req() req): Promise<TokenDto> {
+    const { username } = req.user;
+
     const payload = {
       username,
     };

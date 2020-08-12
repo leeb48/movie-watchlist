@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import {
   Controller,
   Post,
+  Get,
   Body,
   ValidationPipe,
-  Get,
   UseGuards,
   Req,
 } from '@nestjs/common';
@@ -29,5 +30,24 @@ export class AuthController {
     @Body(ValidationPipe) loginUserDto: LoginUserDto,
   ): Promise<TokenDto> {
     return await this.authService.loginUser(loginUserDto);
+  }
+
+  // Google OAuth2 Login/Register Route
+  @Get('/google')
+  @UseGuards(AuthGuard('google'))
+  async googleAuth(@Req() req): Promise<void> {
+    return;
+  }
+
+  @Get('/google/redirect')
+  @UseGuards(AuthGuard('google'))
+  googleAuthRedirect(@Req() req) {
+    return this.authService.googleLogin(req);
+  }
+
+  @Get('/test')
+  @UseGuards(AuthGuard('jwt'))
+  test(): string {
+    return 'Protected Route';
   }
 }
