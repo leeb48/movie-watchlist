@@ -26,8 +26,6 @@ services:
       - pgadmin-data:/var/lib/pgadmin
     depends_on:
       - postgres
-    links:
-      - "postgres"
 
   api:
     build:
@@ -55,21 +53,19 @@ services:
       - postgres
     command:
       ["./wait-for-it.sh", "postgres:5432", "--", "npm", "run", "start:dev"]
-    links:
-      - "postgres"
 
   client:
     stdin_open: true
     build:
       dockerfile: Dockerfile.dev
       context: ./client
+    environment:
+      BASE_API_URL: api
     ports:
       - "3000:3000"
     volumes:
       - /app/node_modules
       - ./client:/app
-    links:
-      - "api"
 
 volumes:
   db-data:
