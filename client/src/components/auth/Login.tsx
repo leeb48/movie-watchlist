@@ -73,7 +73,6 @@ const Login = ({ loginUser, isAuthenticated }: LoginProps) => {
             <div className="control">
               <button className="button is-link is-light">Cancel</button>
             </div>
-            {console.log(process.env.BASE_API_URL)}
           </div>
         </form>
       </div>

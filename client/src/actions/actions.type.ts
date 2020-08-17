@@ -3,3 +3,8 @@ export enum AuthActionTypes {
   loginUser = "user/login",
   logoutUser = "user/logout",
 }
+
+export enum MovieActionTypes {
+  getPopularMovies = "movies/popular",
+  searchMovies = "movies/search",
+}

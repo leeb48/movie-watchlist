@@ -58,3 +58,15 @@ export const loginUser = (data: LoginUserDto) => async (
     });
   } catch (error) {}
 };
+
+// ---------------------------------------------------------------------
+// Logout Uesr Action
+export type LogoutUserAction = {
+  type: AuthActionTypes.logoutUser;
+};
+
+export const logoutUser = () => (dispatch: Dispatch<LogoutUserAction>) => {
+  dispatch({
+    type: AuthActionTypes.logoutUser,
+  });
+};

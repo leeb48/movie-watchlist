@@ -1,12 +1,13 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { MoviesService } from './movies.service';
+import { GetMoviesDto } from './dto/get-movies.dto';
 
 @Controller('movies')
 export class MoviesController {
   constructor(private moviesService: MoviesService) {}
 
   @Get('/popular/:page')
-  async getPopularMovies(@Param('page') page: number) {
+  async getPopularMovies(@Param('page') page: number): Promise<GetMoviesDto[]> {
     return await this.moviesService.getPopularMovies(page);
   }
 
@@ -14,7 +15,7 @@ export class MoviesController {
   async searchMovies(
     @Param('query') query: string,
     @Param('page') page: number,
-  ) {
+  ): Promise<GetMoviesDto[]> {
     return await this.moviesService.searchMovies(query, page);
   }
 
