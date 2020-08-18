@@ -22,6 +22,7 @@ const initialState: MoviesState = {
 export const movies = (state = initialState, action: MovieActions) => {
   switch (action.type) {
     case MovieActionTypes.getPopularMovies:
+    case MovieActionTypes.searchMovies:
       return {
         ...state,
         listOfMovies: action.payload,

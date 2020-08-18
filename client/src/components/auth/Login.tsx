@@ -6,6 +6,8 @@ import { LoginUserDto } from "../../actions/auth.actions";
 import { AppState } from "../../reducers";
 import { useHistory } from "react-router-dom";
 
+import "./Auth.scss";
+
 type LoginProps = {
   loginUser: (data: LoginUserDto) => void;
   isAuthenticated: boolean;
@@ -68,10 +70,10 @@ const Login = ({ loginUser, isAuthenticated }: LoginProps) => {
           </div>
           <div className="field is-grouped">
             <div className="control">
-              <button className="button is-link">Submit</button>
+              <button className="button is-black">Submit</button>
             </div>
             <div className="control">
-              <button className="button is-link is-light">Cancel</button>
+              <button className="button">Cancel</button>
             </div>
           </div>
         </form>

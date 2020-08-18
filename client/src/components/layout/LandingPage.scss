@@ -1,18 +1,55 @@
-.grid {
+.poster-grid {
   margin-bottom: 2rem;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-auto-rows: minmax(300px, auto);
   gap: 1rem;
+
+  .movie-title-card {
+    margin-top: 50%;
+  }
+
+  .card {
+    background-color: #363636;
+  }
+}
+
+.pagination-searchbar-grid {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+
+  align-items: center;
+  justify-items: center;
+
+  .search-input {
+    background-color: #909090;
+    border: #909090;
+    color: white;
+
+    &::placeholder {
+      color: white;
+    }
+  }
 }
 
 .pagination {
   margin-top: 1rem;
 
-  li > a {
+  a:active,
+  :focus {
     outline: none;
-    color: black;
+    border: none;
+  }
+
+  li > a {
+    border: none;
+    color: white;
     height: 100%;
     width: 100%;
+  }
+
+  &-link {
+    background-color: gray;
+    border: transparent;
   }
 }
