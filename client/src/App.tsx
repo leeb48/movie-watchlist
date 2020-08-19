@@ -9,6 +9,7 @@ import Navbar from "./components/layout/Navbar";
 import LandingPage from "./components/layout/LandingPage";
 import SearchResults from "./components/movie/SearchResults";
 import { getUserInfo } from "./actions";
+import MyList from "./components/profile/MyList";
 
 if (localStorage.getItem("token")) {
   store.dispatch<any>(getUserInfo());
@@ -25,6 +26,7 @@ const App = () => {
           <Route exact path="/login" component={Login} />
 
           <Route exact path="/search-results" component={SearchResults} />
+          <Route exact path="/profile" component={MyList} />
         </Switch>
       </Router>
     </Provider>
