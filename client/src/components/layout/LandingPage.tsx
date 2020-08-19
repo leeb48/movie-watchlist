@@ -4,7 +4,6 @@ import { getPopularMovies } from "../../actions/movies.action";
 import "./LandingPage.scss";
 import { AppState } from "../../reducers";
 import { Movie, movies } from "../../reducers/movies";
-import ReactPaginate from "react-paginate";
 import SearchBar from "../search/SearchBar";
 
 interface LandingPageProps {
@@ -37,45 +36,21 @@ const LandingPage = ({ getPopularMovies, movies }: LandingPageProps) => {
           </div>
         </div>
       )}
+      <footer className="card-footer">
+        <button className="button is-black add-button">Add To Watchlist</button>
+      </footer>
     </div>
   ));
-
-  const handlePagination = (selectedItem: any) => {
-    setCurrPage(selectedItem.selected);
-  };
 
   return (
     movies && (
       <div className="has-background-dark" style={{ height: "100vh" }}>
         <div className="container">
-          <div className="pagination-searchbar-grid">
-            <ReactPaginate
-              initialPage={currPage}
-              previousLabel="previous"
-              nextLabel="next"
-              pageCount={100}
-              pageRangeDisplayed={5}
-              marginPagesDisplayed={2}
-              onPageChange={handlePagination}
-              containerClassName="pagination"
-              previousClassName="pagination-previous button is-black"
-              nextClassName="pagination-next button is-black"
-              pageClassName="pagination-link button"
-              activeClassName="pagination-link is-black"
-              breakClassName="pagination-ellipsis"
-            />
-
-            <div className="field has-addons searchbar">
-              <div className="control">
-                <input
-                  className="input search-input"
-                  type="text"
-                  placeholder="Find Your Movies"
-                />
-              </div>
-              <SearchBar />
-            </div>
-          </div>
+          <SearchBar
+            pageCount={100}
+            currPage={currPage}
+            setCurrPage={setCurrPage}
+          />
           <div className="poster-grid">{renderMovies}</div>
         </div>
       </div>
