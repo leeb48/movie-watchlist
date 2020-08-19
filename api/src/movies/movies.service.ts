@@ -6,6 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { MovieRepository } from './movie.repository';
 import { User } from 'src/auth/entity/user.entity';
 import { AddToWatchlistDto } from './dto/add-to-watchlist.dto';
+import { RemoveWatchlistDto } from './dto/remove-watchlist.dto';
 
 @Injectable()
 export class MoviesService {
@@ -69,5 +70,12 @@ export class MoviesService {
     addToWatchlistDto: AddToWatchlistDto,
   ): Promise<void> {
     await this.movieRepo.addToWatchlist(user, addToWatchlistDto);
+  }
+
+  async removeWatchlist(
+    user: User,
+    removeWatchlistDto: RemoveWatchlistDto,
+  ): Promise<void> {
+    await this.movieRepo.removeWatchlist(user, removeWatchlistDto);
   }
 }

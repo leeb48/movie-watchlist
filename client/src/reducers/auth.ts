@@ -10,13 +10,26 @@ export type User = {
 };
 
 export type AuthState = {
-  user: User | null;
+  user: User;
   isAuthenticated: boolean;
 };
 
 const initialState: AuthState = {
-  user: null,
+  user: {
+    firstName: "",
+    lastName: "",
+    myList: [],
+    username: "",
+  },
+
   isAuthenticated: false,
+};
+
+const emptyUser: User = {
+  firstName: "",
+  lastName: "",
+  myList: [],
+  username: "",
 };
 
 export const auth = (state = initialState, action: AuthActions) => {
@@ -31,6 +44,25 @@ export const auth = (state = initialState, action: AuthActions) => {
         ...state,
         isAuthenticated: true,
         user: action.payload,
+      };
+
+    case AuthActionTypes.logoutUser:
+      localStorage.removeItem("token");
+      return {
+        ...state,
+        isAuthenticated: false,
+        user: emptyUser,
+      };
+
+    case AuthActionTypes.removeMovie:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          myList: state.user!.myList.filter(
+            (movie) => movie.title !== action.payload
+          ),
+        },
       };
 
     default:

@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { getPopularMovies } from "../../actions/movies.action";
+import { addMovie } from "../../actions/auth.actions";
 import "./LandingPage.scss";
 import { AppState } from "../../reducers";
 import { Movie, movies } from "../../reducers/movies";
 import SearchBar from "../search/SearchBar";
 import { useHistory } from "react-router-dom";
-import { movieApi } from "../../config/axios.config";
 
 interface LandingPageProps {
   movies: Movie[];
   isAuthenticated: boolean;
   getPopularMovies: (page: number) => void;
+  addMovie: (movie: Movie) => void;
 }
 
 const LandingPage = ({
   getPopularMovies,
+  addMovie,
   movies,
   isAuthenticated,
 }: LandingPageProps) => {
@@ -31,7 +33,7 @@ const LandingPage = ({
     if (!isAuthenticated) {
       history.push("/login");
     } else {
-      movieApi.post("/movies/add-watchlist", movie);
+      addMovie(movie);
     }
   };
 
@@ -85,4 +87,6 @@ const mapStateToProps = (state: AppState) => ({
   movies: state.movies.listOfMovies,
 });
 
-export default connect(mapStateToProps, { getPopularMovies })(LandingPage);
+export default connect(mapStateToProps, { getPopularMovies, addMovie })(
+  LandingPage
+);

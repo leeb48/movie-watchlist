@@ -1,16 +1,27 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { AppState } from "../../reducers";
+import { logoutUser } from "../../actions/auth.actions";
 
 interface NavbarProps {
   isAuthenticated: boolean;
+  logoutUser: () => void;
 }
 
-const Navbar = ({ isAuthenticated }: NavbarProps) => {
+const Navbar = ({ isAuthenticated, logoutUser }: NavbarProps) => {
+  const history = useHistory();
+
+  const handleLogout = () => {
+    logoutUser();
+    history.push("/");
+  };
+
   const authenticatedButtons = (
-    <button className="button is-dang">Logout</button>
+    <button onClick={handleLogout} className="button is-dang">
+      Logout
+    </button>
   );
   const guestbuttons = (
     <>
@@ -87,4 +98,4 @@ const mapStateToProps = (state: AppState) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps, { logoutUser })(Navbar);

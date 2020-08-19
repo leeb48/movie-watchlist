@@ -2,12 +2,46 @@ import { AuthActionTypes } from "./actions.type";
 import { Dispatch } from "react";
 import { movieApi } from "../config/axios.config";
 import { User } from "../reducers/auth";
+import { Movie } from "../reducers/movies";
 
 // Descriminated Union Action Types
 export type AuthActions =
   | RegisterUserAction
   | LoginUserAction
-  | GetUserInfoAction;
+  | GetUserInfoAction
+  | LogoutUserAction
+  | RemoveMovieAction;
+
+// ---------------------------------------------------------------------
+// Remove Movie From Watchlist Action
+export type RemoveMovieAction = {
+  type: AuthActionTypes.removeMovie;
+  payload: string;
+};
+
+export const removeMovie = (movie: Movie) => async (
+  dispatch: Dispatch<RemoveMovieAction>
+) => {
+  await movieApi.post("/movies/remove-watchlist", movie);
+
+  dispatch({
+    type: AuthActionTypes.removeMovie,
+    payload: movie.title,
+  });
+};
+
+// ---------------------------------------------------------------------
+// Add Movie To Watchlist Action
+export type AddMovieAction = {
+  type: AuthActionTypes.addMovie;
+  payload: Movie;
+};
+
+export const addMovie = (movie: Movie) => async (
+  dispatch: Dispatch<AddMovieAction>
+) => {
+  await movieApi.post("/movies/add-watchlist", movie);
+};
 
 // ---------------------------------------------------------------------
 // Register User Action

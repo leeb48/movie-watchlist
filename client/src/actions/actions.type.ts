@@ -3,6 +3,8 @@ export enum AuthActionTypes {
   loginUser = "user/login",
   logoutUser = "user/logout",
   getUserInfo = "user/get-info",
+  addMovie = "movies/add",
+  removeMovie = "movies/remove",
 }
 
 export enum MovieActionTypes {
