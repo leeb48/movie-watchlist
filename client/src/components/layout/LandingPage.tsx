@@ -5,18 +5,35 @@ import "./LandingPage.scss";
 import { AppState } from "../../reducers";
 import { Movie, movies } from "../../reducers/movies";
 import SearchBar from "../search/SearchBar";
+import { useHistory } from "react-router-dom";
+import { movieApi } from "../../config/axios.config";
 
 interface LandingPageProps {
   movies: Movie[];
+  isAuthenticated: boolean;
   getPopularMovies: (page: number) => void;
 }
 
-const LandingPage = ({ getPopularMovies, movies }: LandingPageProps) => {
+const LandingPage = ({
+  getPopularMovies,
+  movies,
+  isAuthenticated,
+}: LandingPageProps) => {
   const [currPage, setCurrPage] = useState(0);
 
   useEffect(() => {
     getPopularMovies(currPage + 1);
   }, [getPopularMovies, currPage]);
+
+  const history = useHistory();
+
+  const handleAddMovieClick = (movie: Movie) => {
+    if (!isAuthenticated) {
+      history.push("/login");
+    } else {
+      movieApi.post("/movies/add-watchlist", movie);
+    }
+  };
 
   const renderMovies = movies.map((movie, idx) => (
     <div key={idx} className="card">
@@ -37,7 +54,12 @@ const LandingPage = ({ getPopularMovies, movies }: LandingPageProps) => {
         </div>
       )}
       <footer className="card-footer">
-        <button className="button is-black add-button">Add To Watchlist</button>
+        <button
+          onClick={() => handleAddMovieClick(movie)}
+          className="button is-black add-button"
+        >
+          Add To Watchlist
+        </button>
       </footer>
     </div>
   ));
@@ -59,6 +81,7 @@ const LandingPage = ({ getPopularMovies, movies }: LandingPageProps) => {
 };
 
 const mapStateToProps = (state: AppState) => ({
+  isAuthenticated: state.auth.isAuthenticated,
   movies: state.movies.listOfMovies,
 });
 

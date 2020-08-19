@@ -8,6 +8,11 @@ import "./App.scss";
 import Navbar from "./components/layout/Navbar";
 import LandingPage from "./components/layout/LandingPage";
 import SearchResults from "./components/movie/SearchResults";
+import { getUserInfo } from "./actions";
+
+if (localStorage.getItem("token")) {
+  store.dispatch<any>(getUserInfo());
+}
 
 const App = () => {
   return (
