@@ -7,6 +7,7 @@ import Login from "./components/auth/Login";
 import "./App.scss";
 import Navbar from "./components/layout/Navbar";
 import LandingPage from "./components/layout/LandingPage";
+import SearchResults from "./components/movie/SearchResults";
 
 const App = () => {
   return (
@@ -17,6 +18,8 @@ const App = () => {
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
+
+          <Route exact path="/search-results" component={SearchResults} />
         </Switch>
       </Router>
     </Provider>

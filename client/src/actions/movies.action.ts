@@ -26,15 +26,23 @@ export const getPopularMovies = (page: number = 1) => async (
 
 // ---------------------------------------------------------------------
 // Get Popular Movies Action
+
+type SearchResultsDto = {
+  currPage: number;
+  totalPages: number;
+  searchTerm: string;
+  listOfMovies: Movie[];
+};
+
 export type SearchMoviesAction = {
   type: MovieActionTypes.searchMovies;
-  payload: Movie[];
+  payload: SearchResultsDto;
 };
 
 export const searchMovies = (search: string, page: number) => async (
   dispatch: Dispatch<SearchMoviesAction>
 ) => {
-  const res = await movieApi.get(`/movies/${search}/${page}`);
+  const res = await movieApi.get(`/movies/search/${search}/${page}`);
 
   dispatch({
     type: MovieActionTypes.searchMovies,

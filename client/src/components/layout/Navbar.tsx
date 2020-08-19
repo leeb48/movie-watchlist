@@ -1,8 +1,40 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { AppState } from "../../reducers";
 
-const Navbar = () => {
+interface NavbarProps {
+  isAuthenticated: boolean;
+}
+
+const Navbar = ({ isAuthenticated }: NavbarProps) => {
+  const authenticatedButtons = (
+    <button className="button is-dang">Logout</button>
+  );
+  const guestbuttons = (
+    <>
+      <Link to="/register" className="button is-dark">
+        <strong>Sign up</strong>
+      </Link>
+      <Link to="/login" className="button is-dark">
+        Log in
+      </Link>
+    </>
+  );
+
+  const authenticatedMenu = (
+    <Link to="/profile" className="navbar-item">
+      My List
+    </Link>
+  );
+
+  const guestMenu = (
+    <Link to="/" className="navbar-item">
+      Home
+    </Link>
+  );
+
   return (
     <>
       <section className="hero is-small is-dark is-bold">
@@ -34,24 +66,14 @@ const Navbar = () => {
 
         <div id="navbarBasicExample" className="navbar-menu">
           <div className="navbar-start">
-            <Link to="/" className="navbar-item">
-              Home
-            </Link>
-
-            <Link to="/profile" className="navbar-item">
-              My List
-            </Link>
+            {guestMenu}
+            {isAuthenticated && authenticatedMenu}
           </div>
 
           <div className="navbar-end">
             <div className="navbar-item">
               <div className="buttons">
-                <Link to="/register" className="button is-dark">
-                  <strong>Sign up</strong>
-                </Link>
-                <Link to="/login" className="button is-dark">
-                  Log in
-                </Link>
+                {isAuthenticated ? authenticatedButtons : guestbuttons}
               </div>
             </div>
           </div>
@@ -61,4 +83,8 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+const mapStateToProps = (state: AppState) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps)(Navbar);

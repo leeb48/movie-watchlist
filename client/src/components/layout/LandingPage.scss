@@ -11,6 +11,19 @@
 
   .card {
     background-color: #363636;
+    text-align: center;
+
+    footer {
+      border: none;
+    }
+
+    .title {
+      color: #909090;
+    }
+
+    .add-button {
+      width: 100%;
+    }
   }
 }
 

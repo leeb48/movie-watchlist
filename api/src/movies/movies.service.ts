@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { moviesAxios } from './config/axios.config';
 import { GetMoviesDto } from './dto/get-movies.dto';
+import { SearchMoviesDto } from './dto/search-movies.dto';
 
 @Injectable()
 export class MoviesService {
@@ -27,7 +28,7 @@ export class MoviesService {
     return popularMovies;
   }
 
-  async searchMovies(query: string, page: number): Promise<GetMoviesDto[]> {
+  async searchMovies(query: string, page: number): Promise<SearchMoviesDto> {
     const res = await moviesAxios.get(
       `search/movie?language=en-US&query=${query}&page=${page}&include_adult=false`,
     );
@@ -45,6 +46,13 @@ export class MoviesService {
         } as GetMoviesDto),
     );
 
-    return searchedMovies;
+    const searchResults: SearchMoviesDto = {
+      currPage: res.data.page,
+      totalPages: res.data.total_pages,
+      searchTerm: query,
+      listOfMovies: searchedMovies,
+    };
+
+    return searchResults;
   }
 }
