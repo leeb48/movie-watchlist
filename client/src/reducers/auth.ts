@@ -1,10 +1,12 @@
 import { AuthActions } from "../actions/auth.actions";
 import { AuthActionTypes } from "../actions/actions.type";
+import { Movie } from "./movies";
 
 export type User = {
   username: string;
   firstName: string;
   lastName: string;
+  myList: Movie[];
 };
 
 export type AuthState = {
@@ -23,6 +25,13 @@ export const auth = (state = initialState, action: AuthActions) => {
     case AuthActionTypes.loginUser:
       localStorage.setItem("token", action.payload);
       return { ...state, isAuthenticated: true };
+
+    case AuthActionTypes.getUserInfo:
+      return {
+        ...state,
+        isAuthenticated: true,
+        user: action.payload,
+      };
 
     default:
       return state;

@@ -1,9 +1,37 @@
 import { AuthActionTypes } from "./actions.type";
 import { Dispatch } from "react";
 import { movieApi } from "../config/axios.config";
+import { User } from "../reducers/auth";
 
 // Descriminated Union Action Types
-export type AuthActions = RegisterUserAction | LoginUserAction;
+export type AuthActions =
+  | RegisterUserAction
+  | LoginUserAction
+  | GetUserInfoAction;
+
+// ---------------------------------------------------------------------
+// Register User Action
+export type GetUserInfoAction = {
+  type: AuthActionTypes.getUserInfo;
+  payload: User;
+};
+
+export const getUserInfo = () => async (
+  dispatch: Dispatch<GetUserInfoAction>
+) => {
+  try {
+    const res = await movieApi.get("/auth/get-user");
+
+    if (res.data) {
+      dispatch({
+        type: AuthActionTypes.getUserInfo,
+        payload: res.data,
+      });
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
 // ---------------------------------------------------------------------
 // Register User Action
