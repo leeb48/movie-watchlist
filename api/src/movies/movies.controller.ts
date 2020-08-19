@@ -38,7 +38,6 @@ export class MoviesController {
     @GetUser() user: User,
     @Body() addToWatchlistDto: AddToWatchlistDto,
   ): Promise<void> {
-    console.log(addToWatchlistDto);
     await this.moviesService.addToWatchlist(user, addToWatchlistDto);
   }
 

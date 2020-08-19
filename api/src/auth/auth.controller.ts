@@ -13,6 +13,9 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { TokenDto } from './dto/token.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { SendUserInfoDto } from './dto/send-user-info.dto';
+import { GetUser } from 'src/movies/decorator/user.decorator';
+import { User } from './entity/user.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -32,16 +35,31 @@ export class AuthController {
     return await this.authService.loginUser(loginUserDto);
   }
 
-  // Google OAuth2 Login/Register Route
-  @Get('/google')
-  @UseGuards(AuthGuard('google'))
-  async googleAuth(@Req() req): Promise<void> {
-    return;
+  @Get('/get-user')
+  @UseGuards(AuthGuard())
+  getUser(@GetUser() user: User): SendUserInfoDto {
+    const { username, firstName, lastName, movies } = user;
+
+    const userInfo: SendUserInfoDto = {
+      username,
+      firstName,
+      lastName,
+      myList: movies,
+    };
+
+    return userInfo;
   }
 
-  @Get('/google/redirect')
-  @UseGuards(AuthGuard('google'))
-  googleAuthRedirect(@Req() req) {
-    return this.authService.googleLogin(req);
-  }
+  // Google OAuth2 Login/Register Route
+  // @Get('/google')
+  // @UseGuards(AuthGuard('google'))
+  // async googleAuth(@Req() req): Promise<void> {
+  //   return;
+  // }
+
+  // @Get('/google/redirect')
+  // @UseGuards(AuthGuard('google'))
+  // googleAuthRedirect(@Req() req) {
+  //   return this.authService.googleLogin(req);
+  // }
 }
