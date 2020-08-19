@@ -1,6 +1,7 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { GetMoviesDto } from './dto/get-movies.dto';
+import { SearchMoviesDto } from './dto/search-movies.dto';
 
 @Controller('movies')
 export class MoviesController {
@@ -15,7 +16,7 @@ export class MoviesController {
   async searchMovies(
     @Param('query') query: string,
     @Param('page') page: number,
-  ): Promise<GetMoviesDto[]> {
+  ): Promise<SearchMoviesDto> {
     return await this.moviesService.searchMovies(query, page);
   }
 
