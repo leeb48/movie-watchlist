@@ -1,5 +1,5 @@
-export class addToWatchlistDto {
-  posterPath: string;
+export class AddToWatchlistDto {
+  postPath: string;
   backdropPath: string;
   popularity: string;
   voteCount: string;

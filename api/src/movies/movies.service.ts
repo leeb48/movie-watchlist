@@ -2,9 +2,17 @@ import { Injectable } from '@nestjs/common';
 import { moviesAxios } from './config/axios.config';
 import { GetMoviesDto } from './dto/get-movies.dto';
 import { SearchMoviesDto } from './dto/search-movies.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { MovieRepository } from './movie.repository';
+import { User } from 'src/auth/entity/user.entity';
+import { AddToWatchlistDto } from './dto/add-to-watchlist.dto';
 
 @Injectable()
 export class MoviesService {
+  constructor(
+    @InjectRepository(MovieRepository) private movieRepo: MovieRepository,
+  ) {}
+
   async getPopularMovies(page: number): Promise<GetMoviesDto[]> {
     const res = await moviesAxios.get(
       `/movie/popular?language=en-US&page=${page}`,
@@ -54,5 +62,12 @@ export class MoviesService {
     };
 
     return searchResults;
+  }
+
+  async addToWatchlist(
+    user: User,
+    addToWatchlistDto: AddToWatchlistDto,
+  ): Promise<void> {
+    await this.movieRepo.addToWatchlist(user, addToWatchlistDto);
   }
 }
