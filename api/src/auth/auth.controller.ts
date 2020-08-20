@@ -49,17 +49,4 @@ export class AuthController {
 
     return userInfo;
   }
-
-  // Google OAuth2 Login/Register Route
-  // @Get('/google')
-  // @UseGuards(AuthGuard('google'))
-  // async googleAuth(@Req() req): Promise<void> {
-  //   return;
-  // }
-
-  // @Get('/google/redirect')
-  // @UseGuards(AuthGuard('google'))
-  // googleAuthRedirect(@Req() req) {
-  //   return this.authService.googleLogin(req);
-  // }
 }
