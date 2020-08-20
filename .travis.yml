@@ -20,3 +20,15 @@ after_success:
   - docker push bongster228/movie-app-client
   - docker push bongster228/movie-app-nginx
   - docker push bongster228/movie-app-api
+
+deploy:
+  provider: elasticbeanstalk
+  region: us-west-1
+  app: movie-app
+  env: MovieApp-env
+  bucket_name: elasticbeanstalk-us-west-1-278374142069
+  bucket_path: movie-app
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY

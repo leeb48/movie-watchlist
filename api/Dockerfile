@@ -5,4 +5,4 @@ COPY ./package*.json ./
 RUN npm install 
 COPY . .
 RUN npm run build
-CMD ["./wait-for-it.sh", "postgres:5432", "--", "npm", "run", "start:prod"]
+CMD ["./wait-for-it.sh", "$DB_HOST:5432", "--", "npm", "run", "start:prod"]
