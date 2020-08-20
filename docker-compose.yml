@@ -57,8 +57,6 @@ services:
       SYNC: "true"
       JWT_SECRET: movie-watchlist
       JWT_EXPIRE_TIME: 3600
-      OAUTH_CLIENT_ID: 829553638037-1kfopki4r9qeaqjd7qi7j660eqmbv9si.apps.googleusercontent.com
-      OAUTH_SECRET: yVrAtQtbjPfJPT0C_FYEWkGC
       MOVIEDB_TOKEN: eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNjRkZmRlNzBlMzg2MTU2NDgxZDcxYjBkYjQyNGU3ZiIsInN1YiI6IjVlOGQxZGI0Y2U5OTdhMDAxN2I4M2QzZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.W3kfx4m8048H02EGsJWbBZVETGuE3joQGgUJGwgtAYY
     depends_on:
       - postgres
