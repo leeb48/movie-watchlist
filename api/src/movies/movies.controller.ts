@@ -51,8 +51,4 @@ export class MoviesController {
     console.log(removeWatchlistDto);
     await this.moviesService.removeWatchlist(user, removeWatchlistDto);
   }
-
-  // TODO:
-  // Add movie to watchlist
-  // Remove movie from watchlist
 }
