@@ -1,0 +1,22 @@
+sudo: required
+language: generic
+
+services:
+  - docker
+
+before_install:
+  - docker build -t bongster228/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run bongster228/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t bongster228/movie-app-client ./client
+  - docker build -t bongster228/movie-app-nginx ./nginx
+  - docker build -t bongster228/movie-app-api ./api
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take built images and push them onto docker hub
+  - docker push bongster228/movie-app-client
+  - docker push bongster228/movie-app-nginx
+  - docker push bongster228/movie-app-api
