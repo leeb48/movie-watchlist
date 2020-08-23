@@ -60,8 +60,6 @@ services:
       MOVIEDB_TOKEN: eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNjRkZmRlNzBlMzg2MTU2NDgxZDcxYjBkYjQyNGU3ZiIsInN1YiI6IjVlOGQxZGI0Y2U5OTdhMDAxN2I4M2QzZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.W3kfx4m8048H02EGsJWbBZVETGuE3joQGgUJGwgtAYY
     depends_on:
       - postgres
-    command:
-      ["./wait-for-it.sh", "postgres:5432", "--", "npm", "run", "start:dev"]
 
   client:
     stdin_open: true
