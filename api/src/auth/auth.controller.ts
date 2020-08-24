@@ -25,7 +25,11 @@ export class AuthController {
   async registerUser(
     @Body(ValidationPipe) createUserDto: CreateUserDto,
   ): Promise<TokenDto> {
-    return await this.authService.registerUser(createUserDto);
+    try {
+      return await this.authService.registerUser(createUserDto);
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }
 
   @Post('/login')
