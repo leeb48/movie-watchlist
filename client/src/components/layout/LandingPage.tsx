@@ -60,7 +60,7 @@ const LandingPage = ({
           onClick={() => handleAddMovieClick(movie)}
           className="button is-black add-button"
         >
-          Add To Watchlist
+          Add To Watchlist Now
         </button>
       </footer>
     </div>
