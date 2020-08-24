@@ -19,7 +19,11 @@ export class UserRepository extends Repository<User> {
     newUser.password = hash;
     newUser.salt = salt;
 
-    await newUser.save();
+    try {
+      await newUser.save();
+    } catch (error) {
+      throw new Error('error herer');
+    }
 
     return newUser.username;
   }

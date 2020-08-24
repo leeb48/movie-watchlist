@@ -39,11 +39,6 @@ export class AuthController {
     return await this.authService.loginUser(loginUserDto);
   }
 
-  @Post('/test')
-  test(): string {
-    return 'test';
-  }
-
   @Get('/get-user')
   @UseGuards(AuthGuard())
   getUser(@GetUser() user: User): SendUserInfoDto {

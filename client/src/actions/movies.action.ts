@@ -18,10 +18,6 @@ export const getPopularMovies = (page: number = 1) => async (
 ) => {
   const res = await movieApi.get(`/movies/popular/${page}`);
 
-  const res2 = await movieApi.post("/auth/test");
-
-  console.log(res2.data);
-
   dispatch({
     type: MovieActionTypes.getPopularMovies,
     payload: res.data,
