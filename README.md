@@ -11,6 +11,7 @@
   - JWT_SECRET: movie-watchlist
   - JWT_EXPIRE_TIME: 3600
   - MOVIEDB_TOKEN:
+  
 For MOVIEDB_TOKEN please create an account at https://www.themoviedb.org/?language=en-US and get a private API Token
 
 Edit the docker-compose file and add the MOVIEDB_TOKEN variable
