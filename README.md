@@ -18,3 +18,5 @@ Edit the docker-compose file and add the MOVIEDB_TOKEN variable
 
 Run docker-compose up with docker installed
 
+## Working Demo
+- http://movieapp-env.eba-azepmg3u.us-west-1.elasticbeanstalk.com/
