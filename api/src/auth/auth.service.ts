@@ -15,15 +15,19 @@ export class AuthService {
   ) {}
 
   async registerUser(createUserDto: CreateUserDto): Promise<TokenDto> {
-    const username = await this.userRepo.registerUser(createUserDto);
+    try {
+      const username = await this.userRepo.registerUser(createUserDto);
 
-    const payload = {
-      username,
-    };
+      const payload = {
+        username,
+      };
 
-    return {
-      token: this.jwtService.sign(payload),
-    };
+      return {
+        token: this.jwtService.sign(payload),
+      };
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }
 
   async loginUser(loginUserDto: LoginUserDto): Promise<TokenDto> {
@@ -43,20 +47,6 @@ export class AuthService {
     }
 
     // Send back token with username upon successful validation
-    const payload = {
-      username,
-    };
-
-    return {
-      token: this.jwtService.sign(payload),
-    };
-  }
-
-  // Create a authentication token after the user has
-  // successfully logged in with Google OAauth2.0
-  async googleLogin(@Req() req): Promise<TokenDto> {
-    const { username } = req.user;
-
     const payload = {
       username,
     };
