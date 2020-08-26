@@ -1,4 +1,5 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { join } from 'path';
 
 // SYNC env variable needs to be converted to a boolean value
 // when it is being used to configure TypeORM
@@ -14,6 +15,6 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities: [__dirname + '/../**/*.entity.{js,ts}'],
+  entities: [join(__dirname, '/../**/*.entity.{js,ts}')],
   synchronize: sync(process.env.SYNC),
 };
